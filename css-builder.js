@@ -219,8 +219,13 @@ define(['require', './normalize'], function(req, normalize) {
             delete global._requirejsCssData;
           }
         }
-        
-        saveFile(outPath, compress(css));
+
+        if(data.path === 'FUNCTION') {
+          if(!config.outCSS) throw 'RequireCSS: outCSS not find';
+          config.outCSS(compress(css));
+        }else {
+          saveFile(outPath, compress(css));
+        }
       });
 
     }
